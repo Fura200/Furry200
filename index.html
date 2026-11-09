@@ -15,10 +15,33 @@
         h1 {
             color: #007bff;
         }
+        /* ボタン用の簡単なスタイル */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <h1>Test</h1>
+    <h1 id="main-title">Test</h1>
     <p>ああああああ</p>
+    
+    <!-- JavaScriptを動かすためのボタンを追加 -->
+    <button id="change-btn">クリックしてね</button>
+
+    <!-- JSのコードはここに記述します -->
+    <script>
+        // 1. HTMLの要素（ボタンとタイトル）を取得する
+        const button = document.getElementById('change-btn');
+        const title = document.getElementById('main-title');
+
+        // 2. ボタンがクリックされた時の処理（イベント）を設定する
+        button.addEventListener('click', () => {
+            // タイトルの文字を書き換える
+            title.textContent = '文字が変わりました！';
+            title.style.color = '#ff4500'; // 色もオレンジに変えてみる
+        });
+    </script>
 </body>
 </html>
