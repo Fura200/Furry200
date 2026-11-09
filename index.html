@@ -39,8 +39,8 @@
     <h1>Test</h1>
     <p>ああああああ</p>
 
-    <!-- 1. HTMLだけで表示できる画像（星のイラストのデータ） -->
-    <img id="my-image" class="test-image" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 24 24' fill='%23ffcc00'><path d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z'/></svg>" alt="星の画像">
+    <!-- 【修正】エラーにならない形式の星画像データに変えました -->
+    <img id="my-image" class="test-image" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 24 24' fill='gold'><path d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z'/></svg>" alt="星の画像">
     
     <!-- 2. JSで動かすためのボタン -->
     <button id="action-btn">画像を大きくする</button>
@@ -50,18 +50,14 @@
         const btn = document.getElementById('action-btn');
         const img = document.getElementById('my-image');
         
-        // 状態を管理する変数（中身が変化するのでletを使います）
         let isLarge = false;
 
-        // ボタンがクリックされた時の動き
         btn.addEventListener('click', () => {
             if (!isLarge) {
-                // 大きくする
                 img.style.transform = 'scale(1.5)';
                 btn.textContent = '画像を元に戻す';
                 isLarge = true;
             } else {
-                // 元に戻す
                 img.style.transform = 'scale(1)';
                 btn.textContent = '画像を大きくする';
                 isLarge = false;
