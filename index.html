@@ -1,68 +1,30 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>テストサイト</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            text-align: center;
-            padding-top: 50px;
-            background-color: #f0f8ff;
-            color: #333;
-        }
-        h1 {
-            color: #007bff;
-        }
-        /* 画像のスタイル */
-        .test-image {
-            width: 150px;
-            height: 150px;
-            margin: 20px auto;
-            display: block;
-            transition: transform 0.3s; /* アニメーション用 */
-        }
-        /* ボタンのスタイル */
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #007bff;
-            color: white;
-            border-radius: 5px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Apinator 受信テスト</title>
 </head>
 <body>
-    <h1>Test</h1>
-    <p>ああああああ</p>
+  <h1>Apinator 待機中...</h1>
+  <p>受信したデータは画面とコンソールに表示されます。</p>
+  <pre id="output"></pre>
 
-    <!-- 【修正】エラーにならない形式の星画像データに変えました -->
-    <img id="my-image" class="test-image" src="data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 24 24' fill='gold'><path d='M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z'/></svg>" alt="星の画像">
+  <script type="module">
+    // CDN（esm.sh）から直接インポート
+    import { Apinator } from 'https://esm.sh';
+
+    const client = new Apinator({ 
+      appKey: 'app_6833eec80472cce54f689551933e89fb5defb8cc', 
+      cluster: 'us' 
+    });
     
-    <!-- 2. JSで動かすためのボタン -->
-    <button id="action-btn">画像を大きくする</button>
+    client.connect();
 
-    <!-- 3. JavaScript -->
-    <script>
-        const btn = document.getElementById('action-btn');
-        const img = document.getElementById('my-image');
-        
-        let isLarge = false;
-
-        btn.addEventListener('click', () => {
-            if (!isLarge) {
-                img.style.transform = 'scale(1.5)';
-                btn.textContent = '画像を元に戻す';
-                isLarge = true;
-            } else {
-                img.style.transform = 'scale(1)';
-                btn.textContent = '画像を大きくする';
-                isLarge = false;
-            }
-        });
-    </script>
+    client.subscribe('my-channel').bind('my-event', (data) => {
+      console.log('Received:', data);
+      // 画面にも表示させる処理
+      document.getElementById('output').textContent += JSON.stringify(data) + '\n';
+    });
+  </script>
 </body>
 </html>
